@@ -1,170 +1,195 @@
-# SurveillanceBot
+# SurveillanceBot Mk3
 
-<p align="center"> <img src="https://upload.wikimedia.org/wikipedia/en/f/f5/Indian_Institute_of_Information_Technology%2C_Nagpur_Logo.svg" width="13%" /><br> <b>Indian Institute of Information Technology, Nagpur</b><br><br> <b>Project Report on</b><br> <b>Surveillance Bot</b><br><br> <b>Submitted by:</b><br> LostAndFound io<br><br> <b>Group Members:</b><br> 1. <a href="https://github.com/Jjateen">Jjateen Gundesha BT22ECI002</a><br> 2. <a href="https://github.com/afloatwont">Ayush Ambatkar BT22ECI005</a><br> 3. Darshan Tate BT22ECI011<br><br> <i>A report submitted for the partial fulfilment of the requirements of the course</i><br> <b>ECE-206 Sensors and Transducers</b><br><br> <i>Submission Date: 31/10/2023</i><br> <b>Mini Project</b><br><br> <i>Under the guidance of:</i><br> <b>Dr. Mayank Thacker</b><br> Department of Electronics and Communication Engineering </p>
+## Overview
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Hardware Components](#hardware-components)
-4. [Software Requirements](#software-requirements)
-5. [Circuit Diagrams](#circuit-diagrams)
-6. [Project Structure](#project-structure)
-7. [Installation](#installation)
-8. [Usage](#usage)
-9. [Detailed Working](#detailed-working)
-10. [Output and Interface Views](#output-and-interface-views)
-11. [Flowchart](#flowchart)
-12. [License](#license)
-13. [References](#references)
+**SurveillanceBot Mk3** is a state-of-the-art robotic surveillance platform that integrates live video streaming, object detection, GPS tracking, and environmental sensing. Built with **ESP32 microcontrollers** and **FreeRTOS**, it enables multitasking and efficient resource management, making it a versatile tool for surveillance and monitoring applications.
 
 ---
 
-## Introduction
-The **SurveillanceBot** project demonstrates the development of an autonomous surveillance system using an ESP32 microcontroller. This mobile robot is equipped with a camera module for live video streaming, a GPS module for location tracking, and an MQ-2 gas sensor for environmental monitoring. The bot's design allows it to be controlled via a user-friendly web interface and enhances its functionality with real-time object detection powered by OpenCV.
+## Evolution of the Project
 
-Robotic systems have seen diverse applications, from security and environmental monitoring to industrial automation. This project integrates multiple sensors and actuators, showcasing the capabilities of the ESP32 platform in real-world scenarios.
+### **Mk1: Initial Prototype**
+The first iteration of SurveillanceBot featured:
+- **GPS Tracking**: Integrated NEO-6M for real-time location tracking.
+- **Environmental Sensing**: Equipped with MQ-2 gas and HX710B pressure sensors.
+- **Live Video Streaming**: ESP32-CAM for real-time camera feeds.
+- **Remote Control**: Controlled via a web-based interface.
 
-### Objectives
-1. **Navigation and Positioning**: Use the NEO-6M GPS module for real-time position tracking.
-2. **Gas Detection**: Detect environmental gases using the MQ-2 sensor.
-3. **Remote Control**: Facilitate bot movement control through a web interface.
-4. **Data Visualization**: Present sensor data in an organized manner on a web dashboard.
-5. **Safety**: Ensure reliable operation, especially for hazardous gas monitoring.
+While comprehensive, Mk1's performance was limited by the computational load of running all features simultaneously.
+
+[![SurveillanceBot Mk1 Demo](https://img.youtube.com/vi/WJb3seyeVC8/0.jpg)](https://youtu.be/WJb3seyeVC8?si=DuR95ykVmRgoRFpG)  
+*Click to watch the Mk1 demo.*
+
+---
+
+### **Mk2: Streamlined Performance**
+To improve performance, Mk2:
+- Removed **GPS Tracking** and **Environmental Sensing** to reduce computational strain.
+- Focused solely on **Live Video Streaming** and **Object Detection** using the MobileNet SSD model.
+- Optimized the hardware and software for smoother operation.
+
+This iteration achieved significant improvements in stability and responsiveness.
+
+[![SurveillanceBot Mk2 Demo](https://img.youtube.com/vi/mzBQwa8xZ_E/0.jpg)](https://youtube.com/shorts/mzBQwa8xZ_E?si=kc09f3fxIJcmkMoF)  
+*Click to watch the Mk2 demo.*
+
+---
+
+### **Mk3: Comprehensive Surveillance**
+Mk3 reintroduced features from Mk1, addressing earlier computational limitations by incorporating **FreeRTOS** for multitasking. Key enhancements include:
+- **Reintegration of GPS Tracking and Environmental Sensing**.
+- **FreeRTOS Multitasking**: Efficient task scheduling for live video, object detection, GPS, and sensors.
+- **Improved Web Interface**: Unified control dashboard for all functionalities.
+
+This iteration represents the culmination of the project's evolution, balancing performance and functionality.
 
 ---
 
 ## Features
-- **Remote Control**: Move the bot in real-time via a web interface.
-- **Live Video Stream**: View a live feed from the ESP32-CAM.
-- **Object Detection**: Identify objects using OpenCV and respond accordingly.
-- **GPS Tracking**: Pinpoint the bot's location on a map.
-- **Environmental Monitoring**: Measure gas concentration and pressure.
-- **Servo Motor Control**: Adjust the angle of a servo motor from the web interface.
+
+1. **Live Video Streaming and Object Detection**:
+   - Real-time streaming using ESP32-CAM.
+   - Object detection powered by MobileNet SSD and OpenCV.
+
+2. **GPS Tracking**:
+   - Tracks real-time geographic location with the NEO-6M GPS module.
+   - Displays location on a web-based dashboard.
+
+3. **Environmental Sensing**:
+   - Detects gas concentrations with the MQ-2 sensor.
+   - Measures atmospheric pressure using the HX710B sensor.
+
+4. **Multitasking**:
+   - Manages video, GPS, and sensor monitoring simultaneously using FreeRTOS.
+
+5. **Remote Control**:
+   - Navigate the robot via a web-based interface.
+   - Adjust mounted components using a servo motor.
 
 ---
 
 ## Hardware Components
-1. **ESP32-CAM**: Handles video streaming and connects to the Wi-Fi network.
-2. **NEO-6M GPS Module**: Provides real-time geographic coordinates.
-3. **MQ-2 Gas Sensor**: Detects gas concentrations in the environment.
-4. **HX710B Pressure Sensor**: Measures atmospheric pressure.
-5. **L298N Motor Driver**: Controls the robot's motors for movement.
-6. **Dual Shaft BO Motors**: Drive the robot's wheels.
-7. **Servo Motor**: Controls the angle of mounted components or sensors.
-8. **Battery Pack**: Powers the bot for autonomous operation.
+
+| Component              | Purpose                                            |
+|------------------------|----------------------------------------------------|
+| **ESP32-CAM**          | Captures live video and performs object detection. |
+| **ESP32 DEVKIT**       | Handles GPS tracking and sensor data monitoring.   |
+| **NEO-6M GPS Module**  | Tracks real-time geographic location.              |
+| **MQ-2 Gas Sensor**    | Detects gas concentrations in the environment.     |
+| **HX710B Pressure Sensor** | Measures atmospheric pressure.                 |
+| **L298N Motor Driver** | Controls the movement of dual-shaft BO motors.     |
+| **Dual Shaft BO Motors** | Provides mobility for the bot.                   |
+| **Servo Motor**        | Adjusts mounted components remotely.               |
+| **Battery Pack**       | Powers the robot's components.                     |
 
 ---
 
 ## Software Requirements
-- **Arduino IDE**: To program the ESP32 and ESP32-CAM boards.
-- **Python**: For running the object detection script.
-- **Libraries**:
-  - Arduino: `esp_camera`, `WiFi`, `TinyGPSPlus`, `HX710B`, `Servo`
-  - Python: `cv2` (OpenCV), `imutils`, `requests`
+
+### 1. Arduino IDE
+- Install libraries:
+  - `esp_camera`
+  - `WiFi`
+  - `TinyGPSPlus`
+  - `HX710B`
+  - `Servo`
+
+### 2. Python
+- Install dependencies:
+  ```bash
+  pip install opencv-python imutils requests flask
+  ```
+
+### 3. FreeRTOS
+- Utilized for efficient multitasking on ESP32.
 
 ---
 
 ## Circuit Diagrams
-### Car Control Circuit
-![Car Circuit Diagram](car_ckt.png)
 
-### Tracker Circuit (GPS and Sensor Module)
-![Tracker Circuit Diagram](tracker_ckt.png)
+### **Car Control Circuit**
+<div align="center">
+    <img src="car_ckt.png" alt="Car Control Circuit" width="75%">
+</div>
 
 ---
 
-## Project Structure
-```
-SurveillanceBot/
-│
-├── ESP32CAM_Car/
-│   ├── ESP32CAM_Car.ino         # ESP32-CAM control code
-│   ├── app_httpd.cpp            # HTTP server code for video streaming
-│   └── camera_index.h           # Camera configurations
-│
-├── gpsNpressureNMQ/
-│   └── gpsNpressureNMQ.ino      # Code for GPS, MQ-2, and HX710B sensors
-│
-├── ObjectDetectionFrames/        # Sample images for testing
-│   ├── Screenshot_60.png
-│   ├── Screenshot_66.png
-│   └── Screenshot_68.png
-│
-├── main.py                      # Object detection script using OpenCV
-├── MobileNetSSD_deploy.caffemodel
-├── MobileNetSSD_deploy.prototxt.txt
-├── car_ckt.png                  # Car control circuit diagram
-├── tracker_ckt.png              # Tracker circuit diagram
-├── sat_view.png                 # Satellite view frontend
-├── Controller.jpeg              # Bot control interface
-├── LICENSE                      # License information
-└── README.md                    # This README file
-```
+### **Tracker Circuit (GPS and Sensor Module)**
+<div align="center">
+    <img src="tracker_ckt.png" alt="Tracker Circuit" width="75%">
+</div>
 
 ---
 
 ## Installation
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/Jjateen/SurveillanceBot.git
-   ```
-2. **Configure Arduino IDE**:
-   - Install ESP32 Board Support.
-   - Load and configure `ESP32CAM_Car.ino` and `gpsNpressureNMQ.ino` sketches.
-   - Set your Wi-Fi credentials in both sketches.
-3. **Install Python Dependencies**:
-   ```bash
-   pip install opencv-python imutils requests
-   ```
-4. **Upload the Sketches**:
-   - Upload `ESP32CAM_Car.ino` to the ESP32-CAM board.
-   - Upload `gpsNpressureNMQ.ino` to the ESP32 DEVKIT board.
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Jjateen/SurveillanceBotMk3.git
+```
+
+### 2. Configure Arduino Sketches
+1. Open `arduinoSketch/arduinoSketch.ino` in Arduino IDE.
+2. Set your Wi-Fi credentials in the sketch.
+3. Upload the sketch to the ESP32-CAM and ESP32 DEVKIT boards.
+
+### 3. Run the Python Server
+Launch the Flask web server:
+```bash
+python app.py
+```
 
 ---
 
 ## Usage
-1. **Power the Bot**: Connect the power supply to the ESP32-CAM and ESP32 DEVKIT.
-2. **Connect to the Web Interface**: Open a browser and enter the IP address shown in the serial monitor.
-3. **Control the Bot**:
-   - Use directional buttons to move the bot.
-   - View the live video feed.
-   - Monitor GPS and sensor data on the dashboard.
-   - Adjust the servo motor using the slider.
+
+### 1. Power On the Bot
+- Connect ESP32 modules to the battery pack.
+
+### 2. Access Web Interfaces
+- Use the IP addresses displayed in the serial monitor to access:
+  - Live video streaming and robot control.
+  - GPS location and environmental sensor data.
+
+### 3. Control the Bot
+- Use the web interface to:
+  - Move the robot forward, backward, left, and right.
+  - Monitor real-time video, GPS location, and sensor readings.
 
 ---
 
 ## Detailed Working
-### ESP32-CAM Module
-1. **Initialization**: Powers up and configures the camera and Wi-Fi.
-2. **Web Server**: Hosts a live streaming interface for remote control.
-3. **Object Detection**: Processes frames using OpenCV and identifies objects.
 
-### ESP32 DEVKIT Module
-1. **GPS Module**: Uses TinyGPSPlus to parse and display coordinates.
-2. **Gas Sensor**: Reads analog values and displays them on the interface.
-3. **Pressure Sensor**: Uses HX710B to measure pressure and sends data to the interface.
-4. **Servo Control**: Adjusts servo position based on user input.
+### **Multitasking with FreeRTOS**
+- **Task 1**: Web server for live video streaming and object detection.
+- **Task 2**: Web server for GPS tracking and environmental monitoring.
+
+### **Object Detection**
+- Utilizes MobileNet SSD for identifying objects in the live video stream.
+- Processes frames directly on the ESP32-CAM.
+
+### **GPS and Sensor Monitoring**
+- Displays real-time GPS coordinates and sensor data on a Flask dashboard.
+
 ---
+
 ## Output and Interface Views
 
-### Controller Interface
+### **Controller Interface**
 <div align="center">
-    <img src="Controller.png" alt="Controller Interface" width="45%">
-</div>
-
-### Satellite View (GPS Tracking)
-<div align="center">
-    <img src="sat_view.png" alt="Satellite View" width="75%">
-</div>
-
-### Example Object Detection Frame
-<div align="center">
-    <img src="ObjectDetectionFrames/Screenshot_68.png" alt="Object Detection" width="45%">
+    <img src="Controller.png" alt="Controller Interface" width="75%">
 </div>
 
 ---
 
-## Flowchart
+### **Sat View Interface**
+<div align="center">
+    <img src="sat_view.png" alt="Sat View Interface" width="75%">
+</div>
+
+---
+
+### **Flowchart**
 <div align="center">
     <img src="flowchart.png" alt="Flowchart">
 </div>
@@ -172,13 +197,14 @@ SurveillanceBot/
 ---
 
 ## License
-This project is licensed under the [MIT License](./LICENSE).
+This project is licensed under the **Apache 2.0 License**.
 
 ---
 
 ## References
-1. [TinyGPSPlus Library](https://tinyurl.com/efnfrwm4)
-2. [ESP32-CAM Object Detection](https://how2electronics.com/esp32-cam-based-object-detection-identification-with-opencv/)
-3. [ESP32 GPS Integration](https://esp32.com/viewtopic.php?t=7294)
+- [SurveillanceBot Mk1 Repository](https://github.com/Jjateen/SurveillanceBot)
+- [SurveillanceBot Mk2 Repository](https://github.com/Jjateen/SurveillanceBotMk2)
+- [FreeRTOS Documentation](https://www.freertos.org/)
+- [TinyGPSPlus Library](https://github.com/mikalhart/TinyGPSPlus) 
 
----
+--- 

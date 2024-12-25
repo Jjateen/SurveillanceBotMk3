@@ -149,7 +149,7 @@ SurveillanceBot/
 
 ### Controller Interface
 <div align="center">
-    <img src="Controller.jpeg" alt="Controller Interface" width="45%">
+    <img src="Controller.png" alt="Controller Interface" width="45%">
 </div>
 
 ### Satellite View (GPS Tracking)

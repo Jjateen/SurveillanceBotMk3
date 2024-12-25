@@ -8,7 +8,7 @@
 
 ## Evolution of the Project
 
-### **Mk1: Initial Prototype**
+### Mk1: Initial Prototype
 The first iteration of SurveillanceBot featured:
 - **GPS Tracking**: Integrated NEO-6M for real-time location tracking.
 - **Environmental Sensing**: Equipped with MQ-2 gas and HX710B pressure sensors.
@@ -17,12 +17,16 @@ The first iteration of SurveillanceBot featured:
 
 While comprehensive, Mk1's performance was limited by the computational load of running all features simultaneously.
 
-[![SurveillanceBot Mk1 Demo](https://img.youtube.com/vi/WJb3seyeVC8/0.jpg)](https://youtu.be/WJb3seyeVC8?si=DuR95ykVmRgoRFpG)  
+<div align="center">
+  <a href="https://youtu.be/WJb3seyeVC8?si=DuR95ykVmRgoRFpG">
+    <img src="https://img.youtube.com/vi/WJb3seyeVC8/0.jpg" alt="SurveillanceBot Mk1 Demo">
+  </a>
+</div>
 *Click to watch the Mk1 demo.*
 
 ---
 
-### **Mk2: Streamlined Performance**
+### Mk2: Streamlined Performance
 To improve performance, Mk2:
 - Removed **GPS Tracking** and **Environmental Sensing** to reduce computational strain.
 - Focused solely on **Live Video Streaming** and **Object Detection** using the MobileNet SSD model.
@@ -30,12 +34,16 @@ To improve performance, Mk2:
 
 This iteration achieved significant improvements in stability and responsiveness.
 
-[![SurveillanceBot Mk2 Demo](https://img.youtube.com/vi/mzBQwa8xZ_E/0.jpg)](https://youtube.com/shorts/mzBQwa8xZ_E?si=kc09f3fxIJcmkMoF)  
+<div align="center">
+  <a href="https://youtube.com/shorts/mzBQwa8xZ_E?si=kc09f3fxIJcmkMoF">
+    <img src="https://img.youtube.com/vi/mzBQwa8xZ_E/0.jpg" alt="SurveillanceBot Mk2 Demo">
+  </a>
+</div> 
 *Click to watch the Mk2 demo.*
 
 ---
 
-### **Mk3: Comprehensive Surveillance**
+### Mk3: Comprehensive Surveillance
 Mk3 reintroduced features from Mk1, addressing earlier computational limitations by incorporating **FreeRTOS** for multitasking. Key enhancements include:
 - **Reintegration of GPS Tracking and Environmental Sensing**.
 - **FreeRTOS Multitasking**: Efficient task scheduling for live video, object detection, GPS, and sensors.
